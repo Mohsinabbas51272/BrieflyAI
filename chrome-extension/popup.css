@@ -6,58 +6,61 @@
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
-/*
- * ── CHROME POPUP WINDOW FIX ──────────────────────────────────────────────────
- * Chrome popup is always a RECTANGLE. The .app-card has rounded corners (28px).
- * The gap between card corners and popup edges shows the body background.
- * FIX: Set html + body background = EXACT same color as the card background.
- * This makes the popup look like JUST the rounded card — no visible rectangle.
- * ─────────────────────────────────────────────────────────────────────────────
+/* 
+ * The Chrome popup window itself IS the card.
+ * No nested card-inside-a-page!
  */
-
-html, body {
-  margin: 0 !important;
-  padding: 0 !important;
-  overflow: hidden !important;
-  width: 420px;
-  height: fit-content !important;
-}
-
-/* Light: match card gradient END color (#f4f6fc) — this is what shows at bottom */
-html.light, body.light {
-  background: #f4f6fc !important;
-}
-
-/* Dark: matches .app-card dark bg exactly */
-html.dark, body.dark {
-  background: #0f172a !important;
-}
-
-/* ── Master Card: fills popup completely, no margins ── */
-.app-card {
-  width: 100%;
+html {
   margin: 0;
-  border-radius: 28px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  height: fit-content;
+  padding: 0;
+  width: 400px;
+  background-color: #fbfdff;
 }
 
-/* Light Theme — gradient ends at #f4f6fc (body bg matches this) */
-body.light .app-card {
-  background: linear-gradient(180deg, #fbfdff 0%, #f4f6fc 100%);
-  border: 1px solid rgba(203, 213, 225, 0.85);
-  box-shadow: none;
+body {
+  width: 400px;
+  margin: 0;
+  padding: 16px 18px 20px 18px;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Light Theme: popup IS the card */
+html.light, body.light {
+  background: #f1f4fb;
+  background: linear-gradient(180deg, #fbfdff 0%, #f1f4fb 100%);
   color: #0f172a;
 }
 
-/* Dark Theme */
-body.dark .app-card {
-  background: #0f172a;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  box-shadow: none;
+/* Dark Theme: popup IS the card */
+html.dark, body.dark {
+  background: #0f172a !important;
   color: #f8fafc;
+}
+
+/* Custom Scrollbars */
+body::-webkit-scrollbar {
+  width: 5px;
+}
+body::-webkit-scrollbar-track {
+  background: transparent;
+}
+body::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.3);
+  border-radius: 999px;
+}
+
+/* Master wrapper - clean flow with no borders/gaps */
+.app-card {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Top Header */
@@ -65,7 +68,7 @@ body.dark .app-card {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 22px 14px 22px;
+  padding: 0 0 16px 0;
 }
 
 .brand {
@@ -209,7 +212,7 @@ body.dark .profile-theme-pill .divider {
 
 /* Content Area */
 .content {
-  padding: 4px 20px 16px 20px;  /* reduced bottom: 22→16px */
+  padding: 0;
   display: flex;
   flex-direction: column;
 }

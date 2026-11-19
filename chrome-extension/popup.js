@@ -122,17 +122,15 @@ function applyTheme(theme) {
   if (theme === 'dark') {
     html.classList.remove('light'); html.classList.add('dark');
     body.classList.remove('light'); body.classList.add('dark');
-    // Exact same as .app-card dark bg — no visible rectangle gap
-    html.style.background = '#0f172a';
-    body.style.background = '#0f172a';
+    html.style.background = '';
+    body.style.background = '';
     if (moonIcon) moonIcon.classList.add('hidden');
     if (sunIcon)  sunIcon.classList.remove('hidden');
   } else {
     html.classList.remove('dark'); html.classList.add('light');
     body.classList.remove('dark'); body.classList.add('light');
-    // Exact same as card gradient END (#f4f6fc) — no visible rectangle gap at bottom
-    html.style.background = '#f4f6fc';
-    body.style.background = '#f4f6fc';
+    html.style.background = '';
+    body.style.background = '';
     if (moonIcon) moonIcon.classList.remove('hidden');
     if (sunIcon)  sunIcon.classList.add('hidden');
   }
