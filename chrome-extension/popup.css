@@ -14,7 +14,7 @@ html {
   margin: 0;
   padding: 0;
   width: 400px;
-  background-color: #fbfdff;
+  border-radius: 14px;
 }
 
 body {
@@ -24,6 +24,7 @@ body {
   box-sizing: border-box;
   overflow-x: hidden;
   overflow-y: auto;
+  border-radius: 14px;
 }
 
 /* Light Theme: popup IS the card */
@@ -31,12 +32,14 @@ html.light, body.light {
   background: #f1f4fb;
   background: linear-gradient(180deg, #fbfdff 0%, #f1f4fb 100%);
   color: #0f172a;
+  border: 1px solid rgba(203, 213, 225, 0.6);
 }
 
 /* Dark Theme: popup IS the card */
 html.dark, body.dark {
   background: #0f172a !important;
   color: #f8fafc;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /* Custom Scrollbars */
