@@ -18,16 +18,21 @@ const AppContent: React.FC = () => {
   const [currentTab, setCurrentTab] = useState<string>('dashboard');
   const [activeSummary, setActiveSummary] = useState<Summary | null>(null);
   const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState<boolean>(() => {
+    const saved = localStorage.getItem('brieflyai_theme');
+    return saved !== null ? saved === 'dark' : true;
+  });
 
   // Sync dark mode class to html element
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add('dark');
       document.documentElement.classList.remove('light');
+      localStorage.setItem('brieflyai_theme', 'dark');
     } else {
-      document.documentElement.classList.add('light');
       document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
+      localStorage.setItem('brieflyai_theme', 'light');
     }
   }, [darkMode]);
 
@@ -50,7 +55,7 @@ const AppContent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-indigo-500/30 selection:text-indigo-200">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col selection:bg-indigo-500/30 selection:text-indigo-600 dark:selection:text-indigo-200 transition-colors">
       {/* Top Navbar */}
       <Navbar
         currentTab={currentTab}
@@ -96,9 +101,9 @@ const AppContent: React.FC = () => {
             user?.role === 'ADMIN' ? (
               <AdminPage />
             ) : (
-              <div className="rounded-3xl border border-slate-800 bg-slate-900/60 p-8 text-center max-w-md mx-auto my-12">
-                <h3 className="text-base font-bold text-white">Administrator Access Required</h3>
-                <p className="text-xs text-slate-400 mt-2">
+              <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-8 text-center max-w-md mx-auto my-12 shadow-sm">
+                <h3 className="text-base font-bold text-slate-900 dark:text-white">Administrator Access Required</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
                   This panel is restricted to users with the ADMIN role. Switch to the Admin demo account in the top navbar profile menu.
                 </p>
               </div>

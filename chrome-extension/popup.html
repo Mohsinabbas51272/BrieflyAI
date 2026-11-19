@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BrieflyAI Popup</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="brand">
+        <div class="logo-icon">✨</div>
+        <div class="brand-text">
+          <span class="brand-title">Briefly<strong>AI</strong></span>
+          <span class="hub-badge">HUB</span>
+        </div>
+      </div>
+      <div class="quota-pill" id="quota-pill">
+        <span class="dot"></span>
+        <span id="quota-text">Connected</span>
+      </div>
+    </header>
+
+    <!-- Main Content Body -->
+    <main class="main">
+      <!-- Active Tab Detection Card -->
+      <div class="card active-tab-card" id="tab-info-card">
+        <div class="tab-type-badge" id="tab-badge">Detecting tab...</div>
+        <h3 class="tab-title" id="tab-title">Loading active page...</h3>
+        <p class="tab-url" id="tab-url">https://...</p>
+      </div>
+
+      <!-- Controls -->
+      <div class="controls-row">
+        <div class="control-group">
+          <label>AI Model</label>
+          <select id="model-select">
+            <option value="gemini-1.5-flash">Gemini 1.5 Flash (Fast)</option>
+            <option value="gemini-1.5-pro">Gemini 1.5 Pro (Deep)</option>
+            <option value="gpt-4o-mini">GPT-4o Mini</option>
+            <option value="smart-engine">Briefly Smart NLP</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>Tone</label>
+          <select id="tone-select">
+            <option value="executive">Executive</option>
+            <option value="technical">Technical</option>
+            <option value="casual">Casual</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Summarize Button -->
+      <button class="btn-primary" id="summarize-btn">
+        <span id="btn-icon">⚡</span>
+        <span id="btn-text">Summarize Active Tab</span>
+      </button>
+
+      <!-- Error Message Box -->
+      <div class="error-box hidden" id="error-box"></div>
+
+      <!-- Loading State -->
+      <div class="loading-state hidden" id="loading-state">
+        <div class="spinner"></div>
+        <p class="loading-title">Synthesizing Content...</p>
+        <p class="loading-desc" id="loading-step">Extracting key points & overview...</p>
+      </div>
+
+      <!-- Result Container -->
+      <div class="result-container hidden" id="result-container">
+        <div class="result-header">
+          <div class="result-meta">
+            <span class="badge" id="result-category">General</span>
+            <span class="read-time" id="result-time">~3 min read</span>
+          </div>
+          <div class="result-actions">
+            <button class="btn-icon" id="copy-btn" title="Copy to clipboard">📋 Copy</button>
+          </div>
+        </div>
+
+        <h2 class="result-title" id="result-title"></h2>
+
+        <div class="result-section">
+          <h4>EXECUTIVE OVERVIEW</h4>
+          <p id="result-overview"></p>
+        </div>
+
+        <div class="result-section">
+          <h4>5 KEY TAKEAWAY POINTS</h4>
+          <div class="keypoints-list" id="keypoints-list"></div>
+        </div>
+
+        <div class="result-footer">
+          <a href="http://localhost:5173" target="_blank" class="open-web-link">
+            Open in BrieflyAI Web Dashboard ↗
+          </a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
