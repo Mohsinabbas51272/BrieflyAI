@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: brieflyai-backend
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install && npm run prisma:generate && npm run build
+    startCommand: npm run prisma:push && npm run prisma:seed && npm run start:prod
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: brieflyai-db
+          property: connectionString
+      - key: JWT_SECRET
+        value: brieflyai_super_secret_jwt_key_2026_modern_saas
+      - key: FRONTEND_URL
+        value: https://briefly-ai-rho.vercel.app
+      - key: GEMINI_API_KEY
+        sync: false
+
+databases:
+  - name: brieflyai-db
+    databaseName: brieflyai_db
+    user: brieflyai_user
+    plan: free
