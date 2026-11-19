@@ -4,13 +4,11 @@ import { historyApi } from '../lib/api';
 import { SummaryCard } from '../components/SummaryCard';
 import {
   Search,
-  Filter,
   Star,
   Globe,
   Youtube,
   FileText,
   Sparkles,
-  Layers,
   ArrowUpDown,
   RefreshCw,
   PlusCircle,
@@ -75,7 +73,6 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({
     }
   };
 
-  // Sort summaries
   const sortedSummaries = [...summaries].sort((a, b) => {
     const tA = new Date(a.createdAt).getTime();
     const tB = new Date(b.createdAt).getTime();
@@ -87,10 +84,10 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Summary History & Library
           </h1>
-          <p className="text-xs sm:text-sm text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
             Browse, search, and manage all your generated executive summaries.
           </p>
         </div>
@@ -105,17 +102,17 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({
       </div>
 
       {/* Search & Filter Toolbar */}
-      <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-4 shadow-sm backdrop-blur-sm space-y-3">
+      <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 shadow-sm backdrop-blur-sm space-y-3 transition-colors">
         <div className="flex flex-col md:flex-row items-center gap-3">
           {/* Search Input */}
           <div className="relative w-full md:flex-1">
-            <Search className="absolute left-3.5 top-3 h-4 w-4 text-slate-500" />
+            <Search className="absolute left-3.5 top-3 h-4 w-4 text-slate-400 dark:text-slate-500" />
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search by title, keywords, or topics..."
-              className="w-full rounded-xl border border-slate-800 bg-slate-950 px-3.5 py-2 pl-10 text-xs sm:text-sm text-white placeholder-slate-500 focus:border-indigo-500 focus:outline-none transition"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-3.5 py-2 pl-10 text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:border-indigo-500 focus:outline-none transition"
             />
           </div>
 
@@ -123,7 +120,7 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({
           <div className="flex items-center gap-2 w-full md:w-auto shrink-0 justify-between md:justify-end">
             <button
               onClick={() => setSortOrder(sortOrder === 'desc' ? 'asc' : 'desc')}
-              className="flex items-center gap-1.5 rounded-xl border border-slate-800 bg-slate-950 px-3 py-2 text-xs font-medium text-slate-300 hover:bg-slate-800 transition"
+              className="flex items-center gap-1.5 rounded-xl border border-slate-300 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-3 py-2 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
               title="Toggle sort direction"
             >
               <ArrowUpDown className="h-3.5 w-3.5" />
@@ -132,7 +129,7 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({
 
             <button
               onClick={() => fetchSummaries()}
-              className="p-2 rounded-xl border border-slate-800 bg-slate-950 text-slate-300 hover:bg-slate-800 transition"
+              className="p-2 rounded-xl border border-slate-300 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
               title="Refresh list"
             >
               <RefreshCw className="h-3.5 w-3.5" />
@@ -141,8 +138,8 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({
         </div>
 
         {/* Filter Chips */}
-        <div className="flex items-center gap-2 flex-wrap pt-1 border-t border-slate-800/60">
-          <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mr-1">
+        <div className="flex items-center gap-2 flex-wrap pt-1 border-t border-slate-200 dark:border-slate-800/60">
+          <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mr-1">
             Filter:
           </span>
 
@@ -160,8 +157,8 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({
                 onClick={() => setSourceFilter(item.id as any)}
                 className={`flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-medium transition ${
                   isSelected
-                    ? 'bg-indigo-600 text-white font-semibold'
-                    : 'bg-slate-950 text-slate-400 border border-slate-800 hover:text-white'
+                    ? 'bg-indigo-600 text-white font-semibold shadow-sm'
+                    : 'bg-slate-100 dark:bg-slate-950 text-slate-700 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 {Icon && <Icon className="h-3.5 w-3.5" />}
@@ -174,11 +171,11 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({
             onClick={() => setOnlyFavorites(!onlyFavorites)}
             className={`flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-medium transition ml-auto ${
               onlyFavorites
-                ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30 font-semibold'
-                : 'bg-slate-950 text-slate-400 border border-slate-800 hover:text-white'
+                ? 'bg-amber-400/20 text-amber-800 dark:text-amber-300 border border-amber-400/30 font-semibold'
+                : 'bg-slate-100 dark:bg-slate-950 text-slate-700 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
-            <Star className={`h-3.5 w-3.5 ${onlyFavorites ? 'text-amber-400 fill-amber-400' : ''}`} />
+            <Star className={`h-3.5 w-3.5 ${onlyFavorites ? 'text-amber-500 fill-amber-400' : ''}`} />
             <span>Favorites Only</span>
           </button>
         </div>
@@ -188,14 +185,14 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({
       {isLoading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {[1, 2, 3, 4, 5, 6].map((n) => (
-            <div key={n} className="h-64 rounded-2xl border border-slate-800 bg-slate-900/40 animate-pulse" />
+            <div key={n} className="h-64 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900/40 animate-pulse" />
           ))}
         </div>
       ) : sortedSummaries.length === 0 ? (
-        <div className="rounded-3xl border border-dashed border-slate-800 p-12 text-center bg-slate-900/20">
-          <Sparkles className="mx-auto h-8 w-8 text-slate-600 mb-3" />
-          <h3 className="text-sm font-semibold text-white">No summaries found</h3>
-          <p className="text-xs text-slate-400 mt-1 max-w-sm mx-auto">
+        <div className="rounded-3xl border border-dashed border-slate-300 dark:border-slate-800 p-12 text-center bg-white dark:bg-slate-900/20">
+          <Sparkles className="mx-auto h-8 w-8 text-slate-400 dark:text-slate-600 mb-3" />
+          <h3 className="text-sm font-semibold text-slate-900 dark:text-white">No summaries found</h3>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-sm mx-auto">
             {searchTerm || sourceFilter !== 'ALL' || onlyFavorites
               ? 'No results matched your search criteria. Try adjusting filters.'
               : 'Start by generating your first executive summary!'}

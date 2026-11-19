@@ -9,7 +9,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   const tabTitle = document.getElementById('tab-title');
   const tabUrl = document.getElementById('tab-url');
   const summarizeBtn = document.getElementById('summarize-btn');
-  const errorBox = document.getElementById('error-box');
+  const themeBtn = document.getElementById('theme-toggle-btn');
+
+  // Initialize theme
+  await initTheme();
+
+  // Attach theme listener
+  if (themeBtn) {
+    themeBtn.addEventListener('click', toggleTheme);
+  }
 
   try {
     // 1. Get active tab
@@ -51,8 +59,57 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
+// Theme Management
+async function initTheme() {
+  let theme = 'dark';
+  try {
+    if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+      const res = await chrome.storage.local.get(['brieflyai_theme']);
+      if (res && res.brieflyai_theme) {
+        theme = res.brieflyai_theme;
+      }
+    } else {
+      theme = localStorage.getItem('brieflyai_theme') || 'dark';
+    }
+  } catch (e) {
+    theme = 'dark';
+  }
+
+  applyTheme(theme);
+}
+
+function applyTheme(theme) {
+  const body = document.body;
+  const themeIcon = document.getElementById('theme-icon');
+
+  if (theme === 'light') {
+    body.classList.remove('dark');
+    body.classList.add('light');
+    if (themeIcon) themeIcon.textContent = '🌙';
+  } else {
+    body.classList.remove('light');
+    body.classList.add('dark');
+    if (themeIcon) themeIcon.textContent = '☀️';
+  }
+}
+
+async function toggleTheme() {
+  const isLight = document.body.classList.contains('light');
+  const newTheme = isLight ? 'dark' : 'light';
+  applyTheme(newTheme);
+
+  try {
+    if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+      await chrome.storage.local.set({ brieflyai_theme: newTheme });
+    } else {
+      localStorage.setItem('brieflyai_theme', newTheme);
+    }
+  } catch (e) {
+    console.error('Failed to save theme', e);
+  }
+}
+
 async function getAuthToken() {
-  // Check stored token or auto-login demo
   let token = null;
   if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
     const data = await chrome.storage.local.get(['brieflyai_token']);
@@ -95,7 +152,6 @@ async function handleSummarize() {
   const btn = document.getElementById('summarize-btn');
   const loading = document.getElementById('loading-state');
   const resultContainer = document.getElementById('result-container');
-  const errorBox = document.getElementById('error-box');
 
   hideError();
   resultContainer.classList.add('hidden');

@@ -10,7 +10,6 @@ import {
   Eye,
   EyeOff,
   User,
-  ShieldCheck,
   Zap,
 } from 'lucide-react';
 
@@ -49,10 +48,10 @@ export const SettingsPage: React.FC = () => {
   return (
     <div className="space-y-8 max-w-4xl mx-auto animate-in fade-in duration-200">
       <div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
           Settings & AI Configuration
         </h1>
-        <p className="text-xs sm:text-sm text-slate-400 mt-1">
+        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
           Manage your account profile and configure personal Google Gemini or OpenAI API keys.
         </p>
       </div>
@@ -61,57 +60,57 @@ export const SettingsPage: React.FC = () => {
         <div
           className={`flex items-center gap-2.5 rounded-2xl p-4 text-xs font-semibold ${
             message.type === 'success'
-              ? 'border border-emerald-500/30 bg-emerald-950/20 text-emerald-300'
-              : 'border border-rose-500/30 bg-rose-950/20 text-rose-300'
+              ? 'border border-emerald-300 dark:border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/20 text-emerald-800 dark:text-emerald-300'
+              : 'border border-rose-300 dark:border-rose-500/30 bg-rose-50 dark:bg-rose-950/20 text-rose-800 dark:text-rose-300'
           }`}
         >
           {message.type === 'success' ? (
-            <Check className="h-4 w-4 text-emerald-400" />
+            <Check className="h-4 w-4 text-emerald-500 dark:text-emerald-400" />
           ) : (
-            <AlertCircle className="h-4 w-4 text-rose-400" />
+            <AlertCircle className="h-4 w-4 text-rose-500 dark:text-rose-400" />
           )}
           <span>{message.text}</span>
         </div>
       )}
 
       {/* Account Info Card */}
-      <div className="rounded-3xl border border-slate-800 bg-slate-900/60 p-6 sm:p-8 shadow-sm backdrop-blur-sm space-y-4">
-        <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-          <User className="h-4 w-4 text-indigo-400" />
+      <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 sm:p-8 shadow-sm backdrop-blur-sm space-y-4 transition-colors">
+        <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+          <User className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
           User Profile
         </h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-          <div className="rounded-2xl border border-slate-800 bg-slate-950/60 p-4">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/60 p-4">
             <span className="text-[11px] font-semibold text-slate-500 uppercase">Name</span>
-            <p className="text-sm font-bold text-white mt-1">{user?.name}</p>
+            <p className="text-sm font-bold text-slate-900 dark:text-white mt-1">{user?.name}</p>
           </div>
 
-          <div className="rounded-2xl border border-slate-800 bg-slate-950/60 p-4">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/60 p-4">
             <span className="text-[11px] font-semibold text-slate-500 uppercase">Email</span>
-            <p className="text-sm font-bold text-white mt-1 truncate">{user?.email}</p>
+            <p className="text-sm font-bold text-slate-900 dark:text-white mt-1 truncate">{user?.email}</p>
           </div>
 
-          <div className="rounded-2xl border border-slate-800 bg-slate-950/60 p-4">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/60 p-4">
             <span className="text-[11px] font-semibold text-slate-500 uppercase">Current Plan</span>
-            <p className="text-sm font-bold text-indigo-400 mt-1">{user?.plan} Tier</p>
+            <p className="text-sm font-bold text-indigo-600 dark:text-indigo-400 mt-1">{user?.plan} Tier</p>
           </div>
 
-          <div className="rounded-2xl border border-slate-800 bg-slate-950/60 p-4">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/60 p-4">
             <span className="text-[11px] font-semibold text-slate-500 uppercase">Account Role</span>
-            <p className="text-sm font-bold text-purple-400 mt-1">{user?.role}</p>
+            <p className="text-sm font-bold text-purple-600 dark:text-purple-400 mt-1">{user?.role}</p>
           </div>
         </div>
       </div>
 
       {/* BYO AI Keys Card */}
-      <div className="rounded-3xl border border-slate-800 bg-slate-900/60 p-6 sm:p-8 shadow-sm backdrop-blur-sm space-y-6">
+      <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 sm:p-8 shadow-sm backdrop-blur-sm space-y-6 transition-colors">
         <div>
-          <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-            <Key className="h-4 w-4 text-indigo-400" />
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+            <Key className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
             Bring Your Own (BYO) AI API Keys
           </h3>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
             BrieflyAI works automatically out of the box with our built-in engine. If you prefer to use your personal Google Gemini or OpenAI quotas for unlimited capacity, paste your API keys below.
           </p>
         </div>
@@ -120,8 +119,8 @@ export const SettingsPage: React.FC = () => {
           {/* Gemini Key */}
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
-                <Sparkles className="h-3.5 w-3.5 text-indigo-400" />
+              <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                <Sparkles className="h-3.5 w-3.5 text-indigo-600 dark:text-indigo-400" />
                 Google Gemini API Key
               </label>
               <span className="text-[11px] text-slate-500 font-mono">
@@ -134,12 +133,12 @@ export const SettingsPage: React.FC = () => {
                 value={geminiKey}
                 onChange={(e) => setGeminiKey(e.target.value)}
                 placeholder={user?.hasGeminiKey ? 'Enter new key to update...' : 'AIzaSy...'}
-                className="w-full rounded-2xl border border-slate-800 bg-slate-950 px-4 py-3 text-xs text-white placeholder-slate-600 focus:border-indigo-500 focus:outline-none"
+                className="w-full rounded-2xl border border-slate-300 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-3 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-600 focus:border-indigo-500 focus:outline-none"
               />
               <button
                 type="button"
                 onClick={() => setShowGemini(!showGemini)}
-                className="absolute right-3 top-3 text-slate-500 hover:text-slate-300"
+                className="absolute right-3 top-3 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
               >
                 {showGemini ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
               </button>
@@ -152,8 +151,8 @@ export const SettingsPage: React.FC = () => {
           {/* OpenAI Key */}
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
-                <Zap className="h-3.5 w-3.5 text-emerald-400" />
+              <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                <Zap className="h-3.5 w-3.5 text-emerald-500" />
                 OpenAI API Key
               </label>
               <span className="text-[11px] text-slate-500 font-mono">
@@ -166,12 +165,12 @@ export const SettingsPage: React.FC = () => {
                 value={openaiKey}
                 onChange={(e) => setOpenaiKey(e.target.value)}
                 placeholder={user?.hasOpenaiKey ? 'Enter new key to update...' : 'sk-proj-...'}
-                className="w-full rounded-2xl border border-slate-800 bg-slate-950 px-4 py-3 text-xs text-white placeholder-slate-600 focus:border-indigo-500 focus:outline-none"
+                className="w-full rounded-2xl border border-slate-300 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-3 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-600 focus:border-indigo-500 focus:outline-none"
               />
               <button
                 type="button"
                 onClick={() => setShowOpenai(!showOpenai)}
-                className="absolute right-3 top-3 text-slate-500 hover:text-slate-300"
+                className="absolute right-3 top-3 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
               >
                 {showOpenai ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
               </button>
