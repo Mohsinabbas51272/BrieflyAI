@@ -20,14 +20,15 @@ html, body {
   padding: 0 !important;
   overflow: hidden !important;
   width: 420px;
+  height: fit-content !important;
 }
 
-/* Light theme — matches .app-card light gradient start (#fbfdff) */
+/* Light: match card gradient END color (#f4f6fc) — this is what shows at bottom */
 html.light, body.light {
-  background: #fbfdff !important;
+  background: #f4f6fc !important;
 }
 
-/* Dark theme — matches .app-card dark bg (#0f172a) */
+/* Dark: matches .app-card dark bg exactly */
 html.dark, body.dark {
   background: #0f172a !important;
 }
@@ -35,18 +36,19 @@ html.dark, body.dark {
 /* ── Master Card: fills popup completely, no margins ── */
 .app-card {
   width: 100%;
-  margin: 0;             /* NO margin — card fills popup edge-to-edge */
-  border-radius: 28px;   /* Rounded corners (visual only — popup chrome is rect) */
+  margin: 0;
+  border-radius: 28px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  height: fit-content;
 }
 
-/* Light Theme */
+/* Light Theme — gradient ends at #f4f6fc (body bg matches this) */
 body.light .app-card {
   background: linear-gradient(180deg, #fbfdff 0%, #f4f6fc 100%);
   border: 1px solid rgba(203, 213, 225, 0.85);
-  box-shadow: none;      /* No shadow — card IS the popup */
+  box-shadow: none;
   color: #0f172a;
 }
 
@@ -207,7 +209,7 @@ body.dark .profile-theme-pill .divider {
 
 /* Content Area */
 .content {
-  padding: 6px 20px 22px 20px;
+  padding: 4px 20px 16px 20px;  /* reduced bottom: 22→16px */
   display: flex;
   flex-direction: column;
 }

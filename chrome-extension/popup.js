@@ -130,9 +130,9 @@ function applyTheme(theme) {
   } else {
     html.classList.remove('dark'); html.classList.add('light');
     body.classList.remove('dark'); body.classList.add('light');
-    // Exact same as .app-card light gradient start (#fbfdff)
-    html.style.background = '#fbfdff';
-    body.style.background = '#fbfdff';
+    // Exact same as card gradient END (#f4f6fc) — no visible rectangle gap at bottom
+    html.style.background = '#f4f6fc';
+    body.style.background = '#f4f6fc';
     if (moonIcon) moonIcon.classList.remove('hidden');
     if (sunIcon)  sunIcon.classList.add('hidden');
   }

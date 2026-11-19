@@ -6,13 +6,13 @@
   <style>
     /*
       Runs BEFORE popup.css loads.
-      Sets html+body bg = card background color so Chrome's
-      popup rectangle is invisible — only the rounded card shows.
+      Sets html+body bg = card BOTTOM gradient color (#f4f6fc)
+      so Chrome's popup rectangle blends with the card bottom.
     */
     html, body {
       margin: 0 !important;
       padding: 0 !important;
-      background: #fbfdff !important; /* Light: matches card gradient start */
+      background: #f4f6fc !important; /* Light: matches card gradient END */
     }
     html.dark, body.dark {
       background: #0f172a !important; /* Dark: matches card bg exactly */
