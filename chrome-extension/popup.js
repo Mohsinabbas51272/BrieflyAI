@@ -114,20 +114,25 @@ async function initTheme() {
 }
 
 function applyTheme(theme) {
-  const body     = document.body;
+  const body = document.body;
+  const html = document.documentElement; // <html> element
   const moonIcon = document.getElementById('moon-icon');
   const sunIcon  = document.getElementById('sun-icon');
 
   if (theme === 'dark') {
-    body.classList.remove('light');
-    body.classList.add('dark');
-    // In dark mode: show sun icon (click to go light)
+    // Apply to BOTH html and body — Chrome popup uses html bg for the window
+    html.classList.remove('light'); html.classList.add('dark');
+    body.classList.remove('light'); body.classList.add('dark');
+    // Also force background directly — belt + suspenders approach
+    html.style.background = '#07101f';
+    body.style.background = '#07101f';
     if (moonIcon) moonIcon.classList.add('hidden');
     if (sunIcon)  sunIcon.classList.remove('hidden');
   } else {
-    body.classList.remove('dark');
-    body.classList.add('light');
-    // In light mode: show moon icon (click to go dark)
+    html.classList.remove('dark'); html.classList.add('light');
+    body.classList.remove('dark'); body.classList.add('light');
+    html.style.background = '#e8ecf5';
+    body.style.background = '#e8ecf5';
     if (moonIcon) moonIcon.classList.remove('hidden');
     if (sunIcon)  sunIcon.classList.add('hidden');
   }

@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
   <meta charset="UTF-8">
   <title>BrieflyAI Popup</title>
   <style>
-    /* Prevent Chrome's default white popup background */
+    /* Runs before CSS loads — kills Chrome's default white window instantly */
     html, body {
       margin: 0 !important;
       padding: 0 !important;
-      background: transparent !important;
-      min-height: unset !important;
+      background: #e8ecf5 !important;
+    }
+    html.dark, body.dark {
+      background: #07101f !important;
     }
   </style>
   <link rel="stylesheet" href="popup.css">
