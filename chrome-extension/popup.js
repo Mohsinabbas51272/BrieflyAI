@@ -99,16 +99,17 @@ function setDisconnected(pill, text) {
 
 // ─── Theme Management ──────────────────────────────────────────────────────────
 async function initTheme() {
-  let theme = 'light'; // default: light
+  let theme = document.body.classList.contains('dark') ? 'dark' : 'light';
   try {
     if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
       const res = await chrome.storage.local.get(['brieflyai_theme']);
       if (res && res.brieflyai_theme) theme = res.brieflyai_theme;
     } else {
-      theme = localStorage.getItem('brieflyai_theme') || 'light';
+      const saved = localStorage.getItem('brieflyai_theme');
+      if (saved) theme = saved;
     }
   } catch {
-    theme = 'light';
+    // keep default
   }
   applyTheme(theme);
 }

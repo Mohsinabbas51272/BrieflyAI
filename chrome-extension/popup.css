@@ -13,33 +13,26 @@
 html {
   margin: 0;
   padding: 0;
-  width: 400px;
-  border-radius: 14px;
+  width: 410px;
 }
 
 body {
-  width: 400px;
+  width: 410px;
   margin: 0;
-  padding: 16px 18px 20px 18px;
+  padding: 6px;
   box-sizing: border-box;
   overflow-x: hidden;
   overflow-y: auto;
-  border-radius: 14px;
 }
 
-/* Light Theme: popup IS the card */
+/* Light Theme: outer window bg */
 html.light, body.light {
-  background: #f1f4fb;
-  background: linear-gradient(180deg, #fbfdff 0%, #f1f4fb 100%);
-  color: #0f172a;
-  border: 1px solid rgba(203, 213, 225, 0.6);
+  background: #eef2f7;
 }
 
-/* Dark Theme: popup IS the card */
+/* Dark Theme: outer window bg */
 html.dark, body.dark {
-  background: #0f172a !important;
-  color: #f8fafc;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #080d1a;
 }
 
 /* Custom Scrollbars */
@@ -54,16 +47,35 @@ body::-webkit-scrollbar-thumb {
   border-radius: 999px;
 }
 
-/* Master wrapper - clean flow with no borders/gaps */
+/* 
+ * ── Outer Floating Card (Bahir wala card) ──
+ * Visibly rounded corners with soft border & shadow
+ */
 .app-card {
   width: 100%;
   margin: 0;
-  padding: 0;
-  background: transparent;
-  border: none;
-  box-shadow: none;
+  padding: 16px 18px 20px 18px;
+  border-radius: 22px; /* Smooth rounded corners for outer card */
+  overflow: hidden;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* Light Theme Outer Card */
+body.light .app-card {
+  background: linear-gradient(180deg, #ffffff 0%, #f8faff 100%);
+  border: 1.5px solid rgba(203, 213, 225, 0.85);
+  box-shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.1);
+  color: #0f172a;
+}
+
+/* Dark Theme Outer Card */
+body.dark .app-card {
+  background: #0f172a;
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 28px -4px rgba(0, 0, 0, 0.6);
+  color: #f8fafc;
 }
 
 /* Top Header */
