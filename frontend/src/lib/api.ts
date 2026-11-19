@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { User, Summary, SubscriptionStatus, PlanFeature, AdminMetrics } from '../types';
 
-const API_BASE = '/api';
+const API_BASE = import.meta.env.VITE_API_URL || '/api';
 
 export const apiClient = axios.create({
   baseURL: API_BASE,
