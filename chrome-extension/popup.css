@@ -6,57 +6,55 @@
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* ── Chrome Extension Popup: NO extra space below the card ── */
-html {
-  margin: 0;
-  padding: 0;
-}
+/*
+ * ── CHROME POPUP WINDOW FIX ──────────────────────────────────────────────────
+ * Chrome popup is always a RECTANGLE. The .app-card has rounded corners (28px).
+ * The gap between card corners and popup edges shows the body background.
+ * FIX: Set html + body background = EXACT same color as the card background.
+ * This makes the popup look like JUST the rounded card — no visible rectangle.
+ * ─────────────────────────────────────────────────────────────────────────────
+ */
 
-body {
-  margin: 0;
-  padding: 0;
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
   width: 420px;
-  /* height must be EXACTLY the card — no padding around it */
-  overflow: hidden;
 }
 
-/* Theme backgrounds on BOTH html + body so Chrome shows no white gap */
-html.light, body.light { background: #e8ecf5; }
-html.dark,  body.dark  { background: #07101f; }
-
-/* Custom Scrollbars */
-body::-webkit-scrollbar { width: 5px; }
-body::-webkit-scrollbar-track { background: transparent; }
-body::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.3);
-  border-radius: 999px;
+/* Light theme — matches .app-card light gradient start (#fbfdff) */
+html.light, body.light {
+  background: #fbfdff !important;
 }
 
-/* ── Master Floating Rounded Card ── */
-/* The card itself has padding — NOT the body */
+/* Dark theme — matches .app-card dark bg (#0f172a) */
+html.dark, body.dark {
+  background: #0f172a !important;
+}
+
+/* ── Master Card: fills popup completely, no margins ── */
 .app-card {
-  border-radius: 28px;
+  width: 100%;
+  margin: 0;             /* NO margin — card fills popup edge-to-edge */
+  border-radius: 28px;   /* Rounded corners (visual only — popup chrome is rect) */
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  /* 10px margin so card floats slightly from popup edges */
-  margin: 10px auto;
 }
 
-/* Light Theme Styling */
+/* Light Theme */
 body.light .app-card {
   background: linear-gradient(180deg, #fbfdff 0%, #f4f6fc 100%);
   border: 1px solid rgba(203, 213, 225, 0.85);
-  box-shadow: 0 20px 48px -10px rgba(30, 41, 59, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  box-shadow: none;      /* No shadow — card IS the popup */
   color: #0f172a;
 }
 
-/* Dark Theme Styling */
+/* Dark Theme */
 body.dark .app-card {
   background: #0f172a;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 24px 56px -12px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: none;
   color: #f8fafc;
 }
 

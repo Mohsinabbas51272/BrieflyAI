@@ -115,24 +115,24 @@ async function initTheme() {
 
 function applyTheme(theme) {
   const body = document.body;
-  const html = document.documentElement; // <html> element
+  const html = document.documentElement;
   const moonIcon = document.getElementById('moon-icon');
   const sunIcon  = document.getElementById('sun-icon');
 
   if (theme === 'dark') {
-    // Apply to BOTH html and body — Chrome popup uses html bg for the window
     html.classList.remove('light'); html.classList.add('dark');
     body.classList.remove('light'); body.classList.add('dark');
-    // Also force background directly — belt + suspenders approach
-    html.style.background = '#07101f';
-    body.style.background = '#07101f';
+    // Exact same as .app-card dark bg — no visible rectangle gap
+    html.style.background = '#0f172a';
+    body.style.background = '#0f172a';
     if (moonIcon) moonIcon.classList.add('hidden');
     if (sunIcon)  sunIcon.classList.remove('hidden');
   } else {
     html.classList.remove('dark'); html.classList.add('light');
     body.classList.remove('dark'); body.classList.add('light');
-    html.style.background = '#e8ecf5';
-    body.style.background = '#e8ecf5';
+    // Exact same as .app-card light gradient start (#fbfdff)
+    html.style.background = '#fbfdff';
+    body.style.background = '#fbfdff';
     if (moonIcon) moonIcon.classList.remove('hidden');
     if (sunIcon)  sunIcon.classList.add('hidden');
   }

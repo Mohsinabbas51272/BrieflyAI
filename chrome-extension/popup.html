@@ -4,14 +4,18 @@
   <meta charset="UTF-8">
   <title>BrieflyAI Popup</title>
   <style>
-    /* Runs before CSS loads — kills Chrome's default white window instantly */
+    /*
+      Runs BEFORE popup.css loads.
+      Sets html+body bg = card background color so Chrome's
+      popup rectangle is invisible — only the rounded card shows.
+    */
     html, body {
       margin: 0 !important;
       padding: 0 !important;
-      background: #e8ecf5 !important;
+      background: #fbfdff !important; /* Light: matches card gradient start */
     }
     html.dark, body.dark {
-      background: #07101f !important;
+      background: #0f172a !important; /* Dark: matches card bg exactly */
     }
   </style>
   <link rel="stylesheet" href="popup.css">
