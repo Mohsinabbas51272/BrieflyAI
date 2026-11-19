@@ -41,9 +41,10 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({
         isFavorite: onlyFavorites ? true : undefined,
         limit: 50,
       });
-      setSummaries(res.items);
+      setSummaries(Array.isArray(res?.items) ? res.items : []);
     } catch (e) {
       console.error(e);
+      setSummaries([]);
     } finally {
       setIsLoading(false);
     }

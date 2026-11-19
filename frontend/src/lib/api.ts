@@ -19,9 +19,15 @@ apiClient.interceptors.request.use((config) => {
   return config;
 });
 
-// Handle 401 unauthorized
+// Handle HTML responses (e.g. Vercel SPA rewrites when backend is offline) and 401 unauthorized
 apiClient.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    // If backend is not reached and Vercel returns index.html string instead of JSON
+    if (typeof response.data === 'string' && (response.data.includes('<!doctype html>') || response.data.includes('<html'))) {
+      return Promise.reject(new Error('Backend API unreachable. Please check connection.'));
+    }
+    return response;
+  },
   (error) => {
     if (error.response?.status === 401) {
       // Token expired or invalid

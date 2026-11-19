@@ -33,9 +33,10 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
     setIsLoading(true);
     try {
       const res = await historyApi.list({ limit: 6 });
-      setSummaries(res.items);
+      setSummaries(Array.isArray(res?.items) ? res.items : []);
     } catch (e) {
       console.error(e);
+      setSummaries([]);
     } finally {
       setIsLoading(false);
     }
@@ -262,7 +263,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
               <div key={n} className="h-64 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900/40 animate-pulse" />
             ))}
           </div>
-        ) : summaries.length === 0 ? (
+        ) : (!summaries || summaries.length === 0) ? (
           <div className="rounded-3xl border border-dashed border-slate-300 dark:border-slate-800 p-12 text-center bg-white dark:bg-transparent">
             <Sparkles className="mx-auto h-8 w-8 text-slate-400 dark:text-slate-600 mb-3" />
             <h3 className="text-sm font-semibold text-slate-900 dark:text-white">No summaries yet</h3>

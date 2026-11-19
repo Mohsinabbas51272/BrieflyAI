@@ -28,7 +28,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return;
       }
       const userData = await authApi.getMe();
-      setUser(userData);
+      if (userData && typeof userData === 'object' && userData.id) {
+        setUser(userData);
+      } else {
+        throw new Error('Invalid user payload');
+      }
     } catch {
       localStorage.removeItem('brieflyai_token');
       setToken(null);
