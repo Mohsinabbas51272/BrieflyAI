@@ -6,22 +6,28 @@
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
-html {
-  background: transparent;
-  padding: 0;
+html, body {
   margin: 0;
+  padding: 0;
+  background: transparent !important;
 }
 
-/* Outer Window Wrapper: Spaced slightly below the extension toolbar icon */
+/* Chrome extension popup window size */
 body {
   width: 420px;
-  min-height: 540px;
-  max-height: 640px;
-  padding: 12px 14px 16px 14px; /* Floating space below the Chrome toolbar icon */
-  margin: 0;
-  background: transparent;
+  /* NO min-height — let card dictate its own height */
+  padding: 10px 12px 12px 12px;
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+/* Match body background to theme so no white bleed shows */
+body.light {
+  background: #eef2f9 !important; /* matches the light outer page bg in screenshot */
+}
+
+body.dark {
+  background: #0a0f1e !important;
 }
 
 /* Custom Scrollbars */
@@ -36,12 +42,14 @@ body::-webkit-scrollbar-thumb {
   border-radius: 999px;
 }
 
-/* Master Floating Rounded Card (Design Matching Screenshot) */
+/* Master Floating Rounded Card */
 .app-card {
-  border-radius: 28px; /* Smooth rounded corners as in image */
+  border-radius: 28px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  /* Height auto — card wraps its content exactly, no dead space below */
 }
 
 /* Light Theme Styling */
