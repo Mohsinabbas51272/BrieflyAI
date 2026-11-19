@@ -7,32 +7,35 @@
 }
 
 /* 
- * The Chrome popup window itself IS the card.
- * No nested card-inside-a-page!
+ * ── Chrome Extension Native Popup (Matches Image 2) ──
+ * Fills Chrome's native rounded popup window edge-to-edge.
+ * Zero outer margins, zero grey frame, zero double card.
  */
 html {
   margin: 0;
   padding: 0;
-  width: 410px;
+  width: 380px;
 }
 
 body {
-  width: 410px;
+  width: 380px;
   margin: 0;
-  padding: 6px;
+  padding: 0;
   box-sizing: border-box;
   overflow-x: hidden;
   overflow-y: auto;
 }
 
-/* Light Theme: outer window bg */
+/* Light Theme: Clean solid white (like Chrome's native extensions menu) */
 html.light, body.light {
-  background: #eef2f7;
+  background: #ffffff;
+  color: #0f172a;
 }
 
-/* Dark Theme: outer window bg */
+/* Dark Theme: Premium deep slate */
 html.dark, body.dark {
-  background: #080d1a;
+  background: #0f172a;
+  color: #f8fafc;
 }
 
 /* Custom Scrollbars */
@@ -48,34 +51,20 @@ body::-webkit-scrollbar-thumb {
 }
 
 /* 
- * ── Outer Floating Card (Bahir wala card) ──
- * Visibly rounded corners with soft border & shadow
+ * ── Main Content Container ──
+ * Edge-to-edge, internal padding only
  */
 .app-card {
   width: 100%;
   margin: 0;
-  padding: 16px 18px 20px 18px;
-  border-radius: 22px; /* Smooth rounded corners for outer card */
-  overflow: hidden;
+  padding: 16px 16px 18px 16px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-}
-
-/* Light Theme Outer Card */
-body.light .app-card {
-  background: linear-gradient(180deg, #ffffff 0%, #f8faff 100%);
-  border: 1.5px solid rgba(203, 213, 225, 0.85);
-  box-shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.1);
-  color: #0f172a;
-}
-
-/* Dark Theme Outer Card */
-body.dark .app-card {
-  background: #0f172a;
-  border: 1.5px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 28px -4px rgba(0, 0, 0, 0.6);
-  color: #f8fafc;
 }
 
 /* Top Header */
@@ -83,7 +72,7 @@ body.dark .app-card {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 0 16px 0;
+  padding: 0 0 14px 0;
 }
 
 .brand {
