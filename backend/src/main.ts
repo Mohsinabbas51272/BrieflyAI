@@ -9,9 +9,21 @@ async function bootstrap() {
   // Prefix all routes with /api
   app.setGlobalPrefix('api');
 
-  // Enable CORS
+  // Enable CORS — allow Chrome extensions (chrome-extension://*) + frontend
   app.enableCors({
-    origin: true, // Allow frontend dev server
+    origin: (origin, callback) => {
+      // Allow: no origin (curl/mobile), localhost frontend, Chrome extensions
+      if (
+        !origin ||
+        origin.startsWith('http://localhost') ||
+        origin.startsWith('https://localhost') ||
+        origin.startsWith('chrome-extension://')
+      ) {
+        callback(null, true);
+      } else {
+        callback(null, true); // Allow all origins in dev
+      }
+    },
     credentials: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
   });
