@@ -12,6 +12,8 @@ import {
   ArrowUpDown,
   RefreshCw,
   PlusCircle,
+  FileSpreadsheet,
+  Download,
 } from 'lucide-react';
 
 interface HistoryPageProps {
@@ -79,6 +81,30 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({
     return sortOrder === 'desc' ? tB - tA : tA - tB;
   });
 
+  const exportToCsv = () => {
+    if (summaries.length === 0) return;
+    const headers = ['Title', 'Source URL', 'Type', 'AI Model', 'Tone', 'Reading Time', 'Overview', 'Key Points', 'Created At'];
+    const rows = summaries.map((s) => [
+      `"${(s.title || '').replace(/"/g, '""')}"`,
+      `"${(s.sourceUrl || '').replace(/"/g, '""')}"`,
+      s.sourceType,
+      s.aiModel,
+      s.tone,
+      `"${s.readingTimeMinutes} min"`,
+      `"${(s.overview || '').replace(/"/g, '""')}"`,
+      `"${(s.keyPoints || []).join('; ').replace(/"/g, '""')}"`,
+      new Date(s.createdAt).toISOString(),
+    ]);
+    const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `brieflyai_summaries_${new Date().toISOString().slice(0, 10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="space-y-6 max-w-7xl mx-auto animate-in fade-in duration-200">
       {/* Header */}
@@ -92,13 +118,38 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({
           </p>
         </div>
 
-        <button
-          onClick={() => setCurrentTab('summarize')}
-          className="self-start sm:self-auto flex items-center gap-2 rounded-2xl bg-indigo-600 px-4 py-2.5 text-xs font-semibold text-white shadow-md shadow-indigo-600/30 hover:bg-indigo-500 transition active:scale-95"
-        >
-          <PlusCircle className="h-4 w-4" />
-          <span>New Summary</span>
-        </button>
+        <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto">
+          {/* Direct link to user's Google Sheet */}
+          <a
+            href="https://docs.google.com/spreadsheets/d/1W8TaUNuE3I8JwiGuie8NN6C4YgbxLUAejPjdg-ioMIs/edit"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Open your connected Google Sheet in a new tab"
+            className="flex items-center gap-1.5 rounded-2xl border border-emerald-300 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/40 px-3.5 py-2.5 text-xs font-semibold text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition"
+          >
+            <FileSpreadsheet className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+            <span>Open Google Sheet ↗</span>
+          </a>
+
+          {/* Export to CSV for Google Sheet */}
+          <button
+            onClick={exportToCsv}
+            disabled={summaries.length === 0}
+            title="Export all summaries as CSV (compatible with Google Sheets)"
+            className="flex items-center gap-1.5 rounded-2xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition disabled:opacity-50"
+          >
+            <Download className="h-4 w-4" />
+            <span>Export CSV</span>
+          </button>
+
+          <button
+            onClick={() => setCurrentTab('summarize')}
+            className="flex items-center gap-2 rounded-2xl bg-indigo-600 px-4 py-2.5 text-xs font-semibold text-white shadow-md shadow-indigo-600/30 hover:bg-indigo-500 transition active:scale-95"
+          >
+            <PlusCircle className="h-4 w-4" />
+            <span>New Summary</span>
+          </button>
+        </div>
       </div>
 
       {/* Search & Filter Toolbar */}
